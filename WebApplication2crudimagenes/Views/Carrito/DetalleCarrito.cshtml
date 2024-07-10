@@ -1,0 +1,241 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+@using WebApplication2crudimagenes.Models;
+@using Microsoft.AspNetCore.Http;
+
+@inject SignInManager<Usuarios> signInManager
+
+@{
+    ViewData["title"] = "Detalle Carrito";
+    Layout = null;
+    var name = User.FindFirst(ClaimTypes.GivenName)?.Value ?? "Nombre no dispocible";
+    var lastname = User.FindFirst(ClaimTypes.Surname)?.Value ?? "Apellidos no disponible";
+    var nombreCompleto = $"{name} {lastname}";
+
+
+
+    var rol = User.FindFirst(ClaimTypes.Role)?.Value ?? "";
+}
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <title>@ViewData["Title"]</title>
+
+    <!-- Favicons -->
+    <link href="~/img/favicon.png" rel="icon">
+    <link href="~/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="~/css/fontGoogle.css" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="~/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="~/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="~/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="~/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="~/vendor/simple-datatables/style.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="~/css/Carrito.css" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebApplication2crudimagenes.styles.css" asp-append-version="true" />
+
+    <!-- jsvectormap css -->
+    <link href="~/css/jsvectormap.min.css" rel="stylesheet" type="text/css" />
+
+    <!--Swiper slider css-->
+    <link href="~/css/swiper-bundle.min.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+
+<!-- ======= Header ======= -->
+<header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+        <a href="index.html" class="logo d-flex align-items-center">
+            <img src="~/img/logo.png" alt="">
+            <span class="d-none d-lg-block">EShopper Library</span>
+        </a>
+
+    </div><!-- End Logo -->
+
+   
+
+    <nav class="header-nav ms-auto">
+        <ul class="d-flex align-items-center">
+
+            <li class="nav-item dropdown pe-3">
+
+                @if (signInManager.IsSignedIn(User))
+                {
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" data-bs-toggle="dropdown" id="nombreCompleto">
+                        <span class="d-none d-md-block dropdown-toggle ps-2">@nombreCompleto</span>
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                        <li class="dropdown-header">
+                            <h6>@nombreCompleto</h6>
+                            <span>@rol</span>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                                <i class="bi bi-person"></i>
+                                <span>Mi Perfil</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <form asp-action="Logout" asp-controller="Usuario">
+                                <button class="dropdown-item d-flex align-items-center" type="submit">
+                                    <i class="bi bi-box-arrow-right"></i>
+                                    <span>Logout</span>
+                                </button>
+                            </form>
+                        </li>
+
+                    </ul>
+
+                    <!-- End Profile Dropdown Items -->
+                }
+                else
+                {
+                <li class="nav-item">
+                    <a class="nav-link dark-text" asp-controller="Usuario" asp-action="Registro" asp-route-urlRetorno="@ViewBag.urlRetorno">Registro</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link dark-text" asp-controller="Usuario" asp-action="Login" asp-route-urlRetorno="@ViewBag.urlRetorno">Iniciar Sesion</a>
+                </li>
+                }
+            </li>
+
+        </ul>
+    </nav><!-- End Icons Navigation -->
+
+</header>
+
+
+
+<!-- Topbar End -->
+<!-- Navbar Start -->
+<div class="container-fluid" style="margin-top: 80px;">
+    <div class="row">
+        <div class="pagetitle">
+            <h1>Detalle Carrito</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Carrito</a></li>
+                    <li class="breadcrumb-item active">Detalle Carrito</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+
+
+    </div>
+  
+    <section class="section">
+        <div class="row">
+            <div id="alertcontenedor"></div>
+            
+            <p><a asp-action="Index" asp-controller="Carrito" class="link-ancor link-offset-3 link-primary link-underline-opacity-25 link-underline-opacity-100-hover">Seguir Comprando</a></p>
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <input type="hidden" id="esAutenticado" value="1" />
+            }
+            else
+            {
+                <input type="hidden" id="esAutenticado" value="0" />
+
+            }
+
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Carrito</h5>
+                        <!-- <img src="~/Imagenes/03999cb8-44c9-42c6-a38b-26d1ca0f13e5_libro2.jpg" /> -->
+                        <div class="container container-div border-bottom-0 border-start-0 border-end-0 border-dashed border" id="listaCarrito">
+                            
+                            
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Totales</h5>
+
+                        <div class="p-3 border-bottom-0 border-start-0 border-end-0 border-dashed border"
+                             id="checkout-elem">
+                            <div class="d-flex justify-content-between align-items-center pb-3">
+                                <h5 class="m-0 text-muted total" id="subTotal">SubTotal</h5>
+                                <div class="px-2">
+                                    <h5 class="m-0 total" id="subtotal">$0</h5>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center pb-3">
+                                <h5 class="m-0 text-muted total">Total:</h5>
+                                <div class="px-2">
+                                    <h5 class="m-0 total" id="total">$0</h5>
+                                </div>
+                            </div>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <a class="btn btn-sm btn-primary text-center" data-url="@Url.Action("Comprar", "Carrito")" id="comprar">
+                                    Proceder al Pago
+                                </a>
+                            </div>
+                           
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+</div>
+<!-- Navbar End -->
+<!-- Footer Start -->
+
+<!-- JavaScript Libraries -->
+<!-- Vendor JS Files -->
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/vendor/apexcharts/apexcharts.min.js"></script>
+<script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/vendor/chart.js/chart.umd.js"></script>
+<script src="~/vendor/echarts/echarts.min.js"></script>
+<script src="~/vendor/quill/quill.js"></script>
+<script src="~/vendor/simple-datatables/simple-datatables.js"></script>
+<script src="~/vendor/tinymce/tinymce.min.js"></script>
+<script src="~/vendor/php-email-form/validate.js"></script>
+<script src="~/lib/sweetalert2.all.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+
+<!-- Template Main JS File -->
+<script src="~/js/main.js"></script>
+<script src="~/js/carritoCompra.js"></script>
+<partial name="_ValidationScriptsPartial" />
+

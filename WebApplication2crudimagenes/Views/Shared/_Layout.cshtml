@@ -1,0 +1,212 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using WebApplication2crudimagenes.Servicios
+
+@inject UserManager<Usuarios> userManager
+
+
+@{
+    var usuarioCorreo = User.Identity.Name;
+    var usuario = await userManager.FindByNameAsync(usuarioCorreo.ToUpper());
+    var userAdmin = await userManager.IsInRoleAsync(usuario, Constantes.RolAdmin);
+    var user = await userManager.IsInRoleAsync(usuario, Constantes.RolUsuario);
+    var isRol = user;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <title>@ViewData["Title"] - WebApplication2crudimagenes</title>
+
+    <!-- Favicons -->
+    <link href="~/img/favicon.png" rel="icon">
+    <link href="~/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="~/css/fontGoogle.css" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="~/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="~/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="~/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="~/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="~/vendor/simple-datatables/style.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="~/css/style.css" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebApplication2crudimagenes.styles.css" asp-append-version="true" />
+</head>
+<body>
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top d-flex align-items-center">
+
+        <div class="d-flex align-items-center justify-content-between">
+            <a href="index.html" class="logo d-flex align-items-center">
+                <img src="~/img/logo.png" alt="logotipo">
+                <span class="d-none d-lg-block">LibrosNet</span>
+            </a>
+            <i class="bi bi-list toggle-sidebar-btn"></i>
+        </div><!-- End Logo -->
+
+      
+
+        <nav class="header-nav ms-auto">
+            <ul class="d-flex align-items-center">
+
+                <li class="nav-item d-block d-lg-none">
+                    <a class="nav-link nav-icon search-bar-toggle " href="#">
+                        <i class="bi bi-search"></i>
+                    </a>
+                </li><!-- End Search Icon-->
+
+
+             
+                <partial name="_linksLogin" />
+
+            </ul>
+        </nav><!-- End Icons Navigation -->
+
+    </header><!-- End Header -->
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+
+        <ul class="sidebar-nav" id="sidebar-nav">
+
+            @if (userAdmin)
+            {
+
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Index" asp-controller="Autores">
+                        <i class="bi bi-people"></i><span>Autores</span>
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Index" asp-controller="Categorias">
+                        <i class="bi bi-journal-text"></i><span>Categorias</span>
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Index" asp-controller="Editorial">
+                        <i class="bi bi-layout-text-window-reverse"></i><span>Editorial</span>
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+                    <a asp-action="Index" asp-controller="Libros" class="nav-link">
+                        <i class="bi bi-journals"></i><span>Libros</span>
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+                    <a asp-action="Index" asp-controller="Usuario" class="nav-link">
+                        <i class="bi bi-journals"></i><span>Usuarios</span>
+                    </a>
+
+                </li>
+                <li class="nav-item">
+                    <a asp-action="Index" asp-controller="Ventas" class="nav-link">
+                        <i class="bi bi-graph-up-arrow"></i><span>Ventas</span>
+                    </a>
+
+                </li>
+
+            }       
+            @if (user)
+            {
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Index" asp-controller="Autores">
+                        <i class="bi bi-people"></i><span>Autores</span>
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Index" asp-controller="Categorias">
+                        <i class="bi bi-journal-text"></i><span>Categorias</span>
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Index" asp-controller="Editorial">
+                        <i class="bi bi-layout-text-window-reverse"></i><span>Editorial</span>
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+                    <a asp-action="Index" asp-controller="Libros" class="nav-link">
+                        <i class="bi bi-journals"></i><span>Libros</span>
+                    </a>
+
+                </li>
+
+            }
+
+
+
+            
+        </ul>
+
+    </aside><!-- End Sidebar-->
+
+    <main id="main" class="main">
+
+        
+
+        <section class="section dashboard">
+
+            @RenderBody()
+
+
+        </section>
+
+    </main><!-- End #main -->
+    <!-- ======= Footer ======= -->
+
+
+
+    <!-- Vendor JS Files -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/vendor/chart.js/chart.umd.js"></script>
+    <script src="~/vendor/echarts/echarts.min.js"></script>
+    <script src="~/vendor/quill/quill.js"></script>
+    <script src="~/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="~/vendor/tinymce/tinymce.min.js"></script>
+    <script src="~/vendor/php-email-form/validate.js"></script>
+    <script src="~/lib/sweetalert2.all.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+
+    <!-- Template Main JS File -->
+    <script src="~/js/main.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+
+</html>
+
+
+
+
+
+

@@ -1,0 +1,27 @@
+﻿@model Editorial
+
+
+@{
+    ViewData["title"] = "Borrar Editorial";
+
+}
+
+<div class="pagetitle">
+    <h1>Editorial</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a>Home</a></li>
+            <li class="breadcrumb-item active">Eliminacion de Editorial</li>
+        </ol>
+    </nav>
+</div>
+
+<h4 class="mb-3">Estas seguro de Borrar la editorial: @Model.nombre? </h4>
+
+<form asp-action="BorrarEditorial" asp-controller="Editorial">
+    <input type="hidden" asp-for="id"/>
+
+    <button class="btn btn-danger" type="submit">Borrar</button>
+    <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
+</form>
+

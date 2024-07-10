@@ -1,0 +1,29 @@
+﻿@model Autores
+
+
+@{
+
+    ViewData["title"] = "Borrar Autor";
+
+}
+
+<div class="pagetitle">
+    <h1>Autores</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Eliminacion de Autor</li>
+        </ol>
+    </nav>
+</div><!-- End Page Title -->
+
+<h3 class="mb-3">Estas seguro de borrar el Autor: @Model.nombre @Model.apellidos?</h3>
+
+<form asp-action="BorrarCuenta" asp-controller="Autores">
+    <input type="hidden" asp-for="id" />
+    <button class="btn btn-danger" type="submit">Borrar</button>
+    <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
+
+</form>
+
+

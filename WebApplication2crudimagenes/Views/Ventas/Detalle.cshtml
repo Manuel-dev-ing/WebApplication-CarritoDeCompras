@@ -1,0 +1,46 @@
+﻿@model IEnumerable<DetalleVentaViewModel>
+
+
+@{
+    ViewData["title"] = "Detalle Venta";
+}
+
+<div class="pagetitle">
+    <h1>Detalle Ventas</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a>ventas</a></li>
+            <li class="breadcrumb-item active">Detalle Ventas</li>
+        </ol>
+    </nav>
+</div>
+
+<table class="table table-bordered table-hover table-responsive mb-5 table-sm">
+    <thead style="background-color: #ECF9FC">
+        <tr>
+            <th>Id</th>
+            <th>Titulo</th>
+            <th>Autor</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.id_venta</td>
+                <td>@item.titulo</td>
+                <td>@item.autor</td>
+                <td>@item.precio</td>
+                <td>@item.cantidad</td>
+                
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+
+

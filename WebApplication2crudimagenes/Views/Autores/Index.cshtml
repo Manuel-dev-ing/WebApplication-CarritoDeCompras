@@ -1,0 +1,89 @@
+﻿@model PaginacionRespuesta<Autores>
+
+@{
+    ViewData["title"] = "listado de Autores";
+}
+
+
+<div class="pagetitle">
+    <h1>Autores</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Autores</li>
+        </ol>
+    </nav>
+</div><!-- End Page Title -->
+
+<br />
+
+
+<a class="btn btn-outline-primary btn-sm mb-4" asp-action="Crear" asp-controller="Autores">Nuevo Autor</a>
+
+<div class="d-flex mb-3">
+
+    <div class="p-2" style="margin-top:7px">
+        <label class="form-label">Mostrar</label>
+    </div>
+
+
+    <div class="p-2">
+        <select asp-for="@Model.RecordsPorPagina" id="cantidadRecordsPorPagina" class="form-select">
+            <option>3</option>
+            <option>5</option>
+            <option>10</option>
+            <option>25</option>
+        </select>
+    </div>
+    
+    <div class="ms-auto p-2">
+        <input type="search" class="form-control" placeholder="buscar" id="buscar"/>
+    </div>
+
+</div>
+
+<table class="table table-bordered table-hover table-responsive mb-5 table-sm">
+    <thead style="background-color: #ECF9FC">
+        <tr>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Direccion</th>
+            <th>Telefono</th>
+            <th>Fecha de Nacimiento</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Elementos)
+        {
+            <tr>
+                <td>@item.nombre</td>
+                <td>@item.apellidos</td>
+                <td>@item.direccion</td>
+                <td>@item.telefono</td>
+                <td>@item.fechaNacimiento.ToString("dd/MM/yyy")</td>
+                <td>
+                    <a class="btn btn-sm btn-outline-warning" asp-route-id="@item.id" asp-action="Editar" asp-controller="Autores"><i class="bi bi-pencil"></i></a>
+                    <a class="btn btn-sm btn-outline-danger" asp-route-id="@item.id" asp-action="Borrar" asp-controller="Autores"><i class="bi bi-trash"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="d-flex justify-content-end">
+    <partial name="_Paginacion" />
+
+</div>
+
+@section Scripts {
+    <script src="~/js/Buscar.js"></script>
+    <script>
+        $("#cantidadRecordsPorPagina").change(function () {
+            const recordsPorPagina = $(this).val();
+            location.href = `/Autores/?Pagina=1&RecordsPorPagina=${recordsPorPagina}`;
+        });
+
+
+    </script>
+}

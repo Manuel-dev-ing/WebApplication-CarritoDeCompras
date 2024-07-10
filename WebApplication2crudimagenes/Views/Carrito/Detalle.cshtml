@@ -1,0 +1,109 @@
+﻿@model LibrosCarrito
+
+
+@{
+    ViewData["title"] = "Detalle del Libro";
+
+}
+
+<h4>Detalle del Libro</h4>
+
+<div class="container-fluid">
+    <div class="row align-items-center py-3 px-xl-5">
+        <div class="col-lg-12 col-12 text-left">
+            <form action="">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Buscar Productos">
+                    <div class="input-group-append">
+                        <span class="input-group-text bg-transparent text-primary">
+                            <i class="bi bi-search"></i>
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid mb-5">
+    <div class="row border-top px-xl-5">
+        <div class="col-lg-3 d-none d-lg-block">
+            
+        </div>
+        <div class="col-lg-11">
+            <div class="row mt-4">
+                <div class="d-flex align-items-center flex-column">
+                    <input type="hidden" asp-for="Id" />
+                    <h5 class="bd-highlight">@Model.Titulo</h5>
+                    <p class="bd-highlight">@Model.Autor</p>
+                </div>
+           
+            </div>
+
+            <div class="row mt-4">
+                <div class="d-flex justify-content-center">
+                    <div class="card product-item border">
+
+                        <img class="img-fluid w-100 card-img-top col" src="~/Imagenes/@Model.imagenPortada" style="height: 350px" alt="portada-libro">
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="accordion" id="accordionPanelsStayOpenExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" 
+                                data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                                SIPNOSIS
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                            <div class="accordion-body">
+                                <p class="h6">@Model.sipnosis</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row mt-4">
+                <div class="accordion" id="accordionPanelsStayOpenExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                                CARACTERISTICAS
+                            </button>
+                        </h2>
+                        <div class="container">
+                            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show row">
+                                <div class="accordion-body">
+                                    <h6><span></span> Numero de paginas: @Model.numeroPaginas</h6> 
+                                    <h6 class="">Idioma: @Model.idioma</h6>
+                                    <h6 class="">Fecha de Publicacion: @Model.FechaPublicacion.ToString("dd MMMM yyyy")</h6>
+                                    <h6 class="">ISBN: @Model.isbn</h6>
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+

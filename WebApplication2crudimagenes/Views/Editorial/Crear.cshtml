@@ -1,0 +1,57 @@
+﻿@model Editorial
+
+@{
+    ViewData["title"] = "Creacion de Editorial";
+}
+
+<div class="pagetitle">
+    <h1>Editorial</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a>Home</a></li>
+            <li class="breadcrumb-item active">Creacion de Editorial</li>
+        </ol>
+    </nav>
+</div>
+
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<form asp-action="Crear" asp-controller="Editorial" class="row g-3">
+    <div class="col-md-6">
+        <label asp-for="nombre" class="form-label"></label>
+        <input asp-for="nombre" class="form-control" name="nombre" id="nombre" />
+        <span asp-validation-for="nombre" class="text-danger"></span>
+    </div>
+    <div class="col-md-6">
+        <label asp-for="ciudad" class="form-label"></label>
+        <input asp-for="ciudad" class="form-control" name="ciudad" id="ciudad" />
+        <span asp-validation-for="ciudad" class="text-danger"></span>
+    </div>
+    <div class="col-md-12">
+        <label asp-for="direccion" class="form-label"></label>
+        <textarea asp-for="direccion" class="form-control" name="direccion" id="direccion"></textarea>
+        <span asp-validation-for="direccion" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-6">
+        <label asp-for="telefono" class="form-label"></label>
+        <input asp-for="telefono" class="form-control" name="telefono" id="telefono" />
+        <span asp-validation-for="telefono"></span>
+    </div>
+    <div class="col-md-6">
+        <label asp-for="correo" class="form-label"></label>
+        <input asp-for="correo" class="form-control" />
+        <span asp-validation-for="correo"></span>
+    </div>
+
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
+    </div>
+</form>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

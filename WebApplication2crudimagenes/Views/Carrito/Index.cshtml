@@ -1,0 +1,316 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+@using WebApplication2crudimagenes.Models;
+@using Microsoft.AspNetCore.Http;
+
+@model PaginacionRespuesta<LibrosCarrito>
+
+@inject SignInManager<Usuarios> signInManager
+@{
+    ViewData["title"] = "Ecommerce";
+    Layout = null;
+
+    var name = User.FindFirst(ClaimTypes.GivenName)?.Value ?? "Nombre no dispocible";
+    var lastname = User.FindFirst(ClaimTypes.Surname)?.Value ?? "Apellidos no disponible";
+    var nombreCompleto = $"{name} {lastname}";
+    var url = Model.BaseURL;
+    var rol = User.FindFirst(ClaimTypes.Role)?.Value ?? "";
+
+}
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <title>@ViewData["Title"] - WebApplication2crudimagenes</title>
+
+    <!-- Favicons -->
+    <link href="~/img/favicon.png" rel="icon">
+    <link href="~/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="~/css/fontGoogle.css" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="~/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="~/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="~/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="~/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="~/vendor/simple-datatables/style.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="~/css/Carrito.css" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebApplication2crudimagenes.styles.css" asp-append-version="true" />
+
+    <!-- jsvectormap css -->
+    <link href="~/css/jsvectormap.min.css" rel="stylesheet" type="text/css" />
+
+    <!--Swiper slider css-->
+    <link href="~/css/swiper-bundle.min.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+
+<!-- ======= Header ======= -->
+<header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+        <a href="index.html" class="logo d-flex align-items-center">
+            <img src="~/img/logo.png" alt="logotipo">
+            <span class="d-none d-lg-block">LibrosNet</span>
+        </a>
+        
+    </div><!-- End Logo -->
+
+    <div class="search-bar" style="margin-top: 16px">
+        <form class="search-form d-flex align-items-center" method="POST" action="#">
+            <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+            <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+        </form>
+    </div>
+
+    <nav class="header-nav ms-auto">
+        <ul class="d-flex align-items-center">
+
+            <li class="nav-item d-block d-lg-none">
+                <a class="nav-link nav-icon search-bar-toggle " href="#">
+                    <i class="bi bi-search"></i>
+                </a>
+            </li><!-- End Search Icon-->
+
+         
+            <li class="nav-item">
+
+                <a class="nav-link nav-icon" asp-action="DetalleCarrito" asp-controller="Carrito">
+                    <i class="bi bi-cart4"></i>
+                    <span id="contador" class="badge bg-success badge-number"></span>
+                </a>
+     
+
+            </li><!-- End Messages Nav -->
+
+            
+            <li class="nav-item dropdown pe-3">
+
+                @if (signInManager.IsSignedIn(User) )
+                {
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" data-bs-toggle="dropdown" id="nombreCompleto">
+                        <span class="d-none d-md-block dropdown-toggle ps-2" >@nombreCompleto</span>
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                        <li class="dropdown-header">
+                            <h6>@nombreCompleto</h6>
+                            <span>@rol</span>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        
+                        <li>
+                            <form asp-action="Logout" asp-controller="Usuario">
+                                <button class="dropdown-item d-flex align-items-center" type="submit">
+                                    <i class="bi bi-box-arrow-right"></i>
+                                    <span>Logout</span>
+                                </button>
+                            </form>
+                        </li>
+
+                    </ul><!-- End Profile Dropdown Items -->
+                }
+                else
+                {
+                    <li class="nav-item">
+                    <a class="nav-link dark-text" asp-controller="Usuario" asp-action="Registro" asp-route-urlRetorno="@url">Registro</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link dark-text" asp-controller="Usuario" asp-action="Login" asp-route-urlRetorno="@url">Iniciar Sesion</a>
+                    </li>
+                }
+            </li>
+
+        </ul>
+    </nav><!-- End Icons Navigation -->
+
+</header>
+
+
+   
+    <!-- Topbar End -->
+    <!-- Navbar Start -->
+<div class="container-fluid" style="margin-top: 80px;">
+        <div class="row">
+            <div class="col-lg-3 d-none d-lg-block">
+                <h4 class="m-0 cat text-center">Categorias</h4>
+                <nav class="navbar-light align-items-start p-0 border border-top-0 border-bottom-0 mb-2" id="navbar-vertical">
+                    <ul class="nav d-flex flex-column" style="height: auto; width: 260px">
+                        @foreach (var item in Model.categorias)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link ancor-nav-link" asp-route-categoria="@item.nombre" asp-action="Index"
+                                asp-controller="Carrito" style="cursor: pointer">@item.nombre</a>
+                            </li>
+                        }
+                        
+                     
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-9">
+               
+                <div class="row row-cols-4">
+
+                    @foreach (var item in Model.Elementos)
+                    {
+                        <div class="col-4">
+                            <div class="card product-item border">
+
+                                <img class="img-fluid w-100 card-img-top" id="imagen" src="~/Imagenes/@item.imagenPortada" style="height: 200px" alt="portada-libro">
+
+                                <div class="card-body">
+                                    <h6 class="text-truncate mb-1 text-center" >@item.Titulo</h6>
+                                    <p class="fw-semibold mb-1 text-center" id="autor">@item.Autor</p>
+
+                                    <div class="text-center">
+
+                                        @if (item.stock == 0)
+                                        {
+                                            <span class="badge bg-secondary" id="stockAgotado" value="@item.stock">Libro Agotado</span>
+                                        }
+                                        else
+                                        {
+                                            <p>Disponible: @item.stock</p>
+                                        }
+
+
+
+                                </div>
+                                    <div class="text-center">
+                                        <p>$@item.precio</p>
+                                    </div>
+                                 
+                                    <div class="grid gap-2 row">
+                                        <a title="Agregar al Carrrito" id="toastbtn" data-stock="@item.stock" data-imagen="@item.imagenPortada" data-precio="@item.precio" data-libro="@item.Id" data-titulo="@item.Titulo" data-autor="@item.Autor" class="agregarCarrito btn btn-sm btn-outline-dark col" style="font-size: 80%;">Agregar Carrito</a>
+                                        <a title="Ver Detalle del Libro"  asp-route-id="@item.Id" asp-action="Detalle" asp-controller="Carrito" class="btn btn-sm btn-outline-info col" style="font-size: 85%; padding-bottom: 5px">Ver Detalles</a>
+
+                                    
+                                    </div>
+                                        
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+
+                    
+                </div>
+            </div>
+
+            
+        </div>
+        <div class="d-flex justify-content-center">
+            <partial name="_Paginacion" />
+
+        </div>
+
+        <div class=" toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="liveToast" class="bg-primary bg-opacity-75 toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                
+                    <div class="toast-body text-white">
+                        Libro agregado al carrito
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Navbar End -->
+    <!-- Footer Start -->
+    <div class="container-fluid bg-secondary text-dark mt-5 pt-5">
+        <div class="row px-xl-5 pt-5">
+            <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
+                <a href="" class="text-decoration-none">
+                    <h1 class="mb-4 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border border-white px-3 mr-1">E</span>Shopper</h1>
+                </a>
+                <p>Dolore erat dolor sit lorem vero amet. Sed sit lorem magna, ipsum no sit erat lorem et magna ipsum dolore amet erat.</p>
+                <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, New York, USA</p>
+                <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@example.com</p>
+                <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890</p>
+            </div>
+            <div class="col-lg-8 col-md-12">
+                <div class="row">
+                    <div class="col-md-4 mb-5">
+                        <h5 class="font-weight-bold text-dark mb-4">Quick Links</h5>
+                        <div class="d-flex flex-column justify-content-start">
+                            <a class="text-dark mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Home</a>
+                            <a class="text-dark mb-2" href="shop.html"><i class="fa fa-angle-right mr-2"></i>Our Shop</a>
+                            <a class="text-dark mb-2" href="detail.html"><i class="fa fa-angle-right mr-2"></i>Shop Detail</a>
+                            <a class="text-dark mb-2" href="cart.html"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
+                            <a class="text-dark mb-2" href="checkout.html"><i class="fa fa-angle-right mr-2"></i>Checkout</a>
+                            <a class="text-dark" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-5">
+                        <h5 class="font-weight-bold text-dark mb-4">Quick Links</h5>
+                        <div class="d-flex flex-column justify-content-start">
+                            <a class="text-dark mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Home</a>
+                            <a class="text-dark mb-2" href="shop.html"><i class="fa fa-angle-right mr-2"></i>Our Shop</a>
+                            <a class="text-dark mb-2" href="detail.html"><i class="fa fa-angle-right mr-2"></i>Shop Detail</a>
+                            <a class="text-dark mb-2" href="cart.html"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
+                            <a class="text-dark mb-2" href="checkout.html"><i class="fa fa-angle-right mr-2"></i>Checkout</a>
+                            <a class="text-dark" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-5">
+                        <h5 class="font-weight-bold text-dark mb-4">Quick Links</h5>
+                        <div class="d-flex flex-column justify-content-start">
+                            <a class="text-dark mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Home</a>
+                            <a class="text-dark mb-2" href="shop.html"><i class="fa fa-angle-right mr-2"></i>Our Shop</a>
+                            <a class="text-dark mb-2" href="detail.html"><i class="fa fa-angle-right mr-2"></i>Shop Detail</a>
+                            <a class="text-dark mb-2" href="cart.html"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
+                            <a class="text-dark mb-2" href="checkout.html"><i class="fa fa-angle-right mr-2"></i>Checkout</a>
+                            <a class="text-dark" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JavaScript Libraries -->
+<!-- Vendor JS Files -->
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/vendor/apexcharts/apexcharts.min.js"></script>
+<script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/vendor/chart.js/chart.umd.js"></script>
+<script src="~/vendor/echarts/echarts.min.js"></script>
+<script src="~/vendor/quill/quill.js"></script>
+<script src="~/vendor/simple-datatables/simple-datatables.js"></script>
+<script src="~/vendor/tinymce/tinymce.min.js"></script>
+<script src="~/vendor/php-email-form/validate.js"></script>
+<script src="~/lib/sweetalert2.all.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+
+<!-- Template Main JS File -->
+<script src="~/js/main.js"></script>
+<script src="~/js/carritoContarElementos.js"></script>
+<partial name="_ValidationScriptsPartial" />
+
+
+
+
+
+

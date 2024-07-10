@@ -1,0 +1,54 @@
+﻿
+@model IEnumerable<Ventas>
+
+@{
+
+    ViewData["title"] = "ventas";
+
+}
+
+
+<div class="pagetitle">
+    <h1>Ventas</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a>Home</a></li>
+            <li class="breadcrumb-item active">Ventas</li>
+        </ol>
+    </nav>
+</div>
+
+<table class="table table-bordered table-hover table-responsive mb-5 table-sm">
+    <thead style="background-color: #ECF9FC">
+        <tr>
+            <th>Id</th>
+            <th>Usuario</th>
+            <th>Fecha Venta</th>
+            <th>SubTotal</th>
+            <th>Impuesto</th>
+            <th>Total</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.id</td>
+                <td>@item.usuario</td>
+                <td>@item.fecha_venta.ToString("yyyy/MM/dd")</td>
+                <td>@item.subTotal</td>
+                <td>@item.impuesto</td>
+                <td>@item.total</td>
+                <td>
+                    <a class="btn btn-sm btn-outline-primary" asp-route-id="@item.id" asp-action="Detalle" asp-controller="Ventas">Ver Detalles</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+
+

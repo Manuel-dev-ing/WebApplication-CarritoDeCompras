@@ -1,0 +1,110 @@
+﻿@model PaginacionRespuesta<LibrosViewModel>
+
+
+@{
+    ViewData["title"] = "Listado de Libros";
+}
+
+
+
+<div class="pagetitle">
+    <h1>Libros</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a>Home</a></li>
+            <li class="breadcrumb-item active">Libros</li>
+        </ol>
+    </nav>
+</div><!-- End Page Title -->
+
+
+<br />
+
+<a class="btn btn-outline-primary mb-3 btn-sm" asp-controller="Libros" asp-action="Crear">Nuevo Libro</a>
+<div class="d-flex mb-3">
+
+    <div class="p-2" style="margin-top:7px">
+        <label class="form-label">Mostrar</label>
+    </div>
+
+
+    <div class="p-2">
+        <select asp-for="@Model.RecordsPorPagina" id="cantidadRecordsPorPagina" class="form-select">
+            <option>3</option>
+            <option>5</option>
+            <option>10</option>
+            <option>25</option>
+        </select>
+    </div>
+
+    <div class="ms-auto p-2">
+        <input type="search" class="form-control" placeholder="buscar" id="buscar" />
+        
+    </div>
+
+   
+
+</div>
+
+
+<table class="table table-bordered table-hover table-responsive mb-5 table-sm">
+
+    <thead style="background-color: #ECF9FC">
+        <tr>
+            <th>Titulo</th>
+            <th>Autor</th>
+            <th>Categoria</th>
+            <th>Editorial</th>
+            <th>Isbn</th>
+            <th>Fecha Publicacion</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Elementos)
+        {
+            <tr>
+                <td>@item.titulo</td>
+                <td>@item.autor</td>
+                <td>@item.categoria</td>
+                <td>@item.editorial</td>
+                <td>@item.isbn</td>
+                <td>@item.fechaPublicacion.ToString("dd/MM/yyy")</td>
+                <td>
+                    <a class="btn btn-outline-warning btn-sm" asp-route-id="@item.id" asp-action="Editar" asp-controller="Libros"><i class="bi bi-pencil"></i></a>
+                    <a class="btn btn-outline-danger btn-sm" asp-route-id="@item.id" asp-action="Borrar" asp-controller="Libros"><i class="bi bi-trash"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+<div class="d-flex justify-content-end">
+    <partial name="_Paginacion" />
+
+</div>
+
+@section Scripts {
+
+    <script src="~/js/Buscar.js"></script>
+
+
+    <script>
+        $("#cantidadRecordsPorPagina").change(function () {
+            const recordsPorPagina = $(this).val();
+            location.href = `/Libros/?Pagina=1&RecordsPorPagina=${recordsPorPagina}`;
+        });
+
+
+    </script>
+}
+
+
+
+
+
+
+
+
+

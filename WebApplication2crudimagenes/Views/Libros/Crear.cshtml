@@ -1,0 +1,103 @@
+﻿@model LibrosCreacionViewModel
+
+
+@{
+
+    ViewData["Title"] = "Crear libro";
+
+}
+<div class="pagetitle">
+    <h1>Libros</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a>Home</a></li>
+            <li class="breadcrumb-item active">Creacion de Libros</li>
+        </ol>
+    </nav>
+</div
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+<p>@ViewBag.success</p>
+
+
+
+<form asp-controller="Libros" asp-action="Crear" enctype="multipart/form-data" class="row g-3" method="post">
+
+    <div class="col-md-6">
+        <label asp-for="titulo" class="form-label">Titulo</label>
+        <input asp-for="titulo" type="text" id="titulo" name="titulo" class="form-control" />
+        <span asp-validation-for="titulo" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-6">
+        <label asp-for="idAutor" class="form-label"></label>
+        <select class="form-select" asp-for="idAutor" asp-items="Model.tiposAutores"></select>
+        <span asp-validation-for="idAutor" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-12">
+        <label asp-for="sipnosis" class="form-label"></label>
+        <textarea asp-for="sipnosis" id="sipnosis" name="sipnosis" class="form-control"></textarea>
+        <span asp-validation-for="sipnosis" class="text-danger"></span>
+    </div>
+
+
+    <div class="col-md-6">
+        <label asp-for="idCategorias" class="form-label"></label>
+        <select class="form-select" asp-for="idCategorias" asp-items="Model.tiposCategorias"></select>
+        <span asp-validation-for="idCategorias" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-6">
+        <label asp-for="idEditorial" class="form-label"></label>
+        <select class="form-select" asp-for="idEditorial" asp-items="Model.tiposEditoriales"></select>
+        <span asp-validation-for="idEditorial" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-6">
+        <label asp-for="precio" class="form-label"></label>
+        <input asp-for="precio" type="number" id="precio" min="1" name="precio" class="form-control" />
+        <span asp-validation-for="precio" class="text-danger"></span>
+    </div>
+    <div class="col-md-6">
+        <label asp-for="stock" class="form-label"></label>
+        <input asp-for="stock" type="number" id="stock" min="1" name="stock" class="form-control" />
+        <span asp-validation-for="stock" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-6">
+        <label asp-for="isbn" class="form-label"></label>
+        <input asp-for="isbn" type="text" id="isbn" name="isbn" class="form-control" />
+        <span asp-validation-for="isbn" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-6">
+        <label asp-for="FechaPublicacion" class="form-label"></label>
+        <input asp-for="FechaPublicacion" id="FechaPublicacion" name="FechaPublicacion" class="form-control" />
+        <span asp-validation-for="FechaPublicacion" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-8">
+        <label asp-for="ImagenArchivo" class="form-label"></label>
+        <input asp-for="ImagenArchivo" class="form-control" id="img" />
+
+    </div>
+    <div class="col-md-4">
+        <img style="width: 200px; height: 200px; border: 1px solid; border-radius: 10px; padding: 10px;" id="prevImg" />
+    </div>
+
+
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
+    </div>
+
+</form>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/CrearLibro.js"></script>
+}

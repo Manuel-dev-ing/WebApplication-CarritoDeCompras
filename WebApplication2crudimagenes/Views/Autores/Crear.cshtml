@@ -1,0 +1,60 @@
+﻿@model Autores
+
+@{
+
+    ViewData["title"] = "Crear Autores";
+
+}
+<div class="pagetitle">
+    <h1>Autores</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a>Home</a></li>
+            <li class="breadcrumb-item active">Crear Autores</li>
+        </ol>
+    </nav>
+</div><!-- End Page Title -->
+
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<form asp-action="Crear" asp-controller="Autores" class="row g-3">
+    <div class="col-md-6">
+        <label asp-for="nombre" class="form-label"></label>
+        <input asp-for="nombre" class="form-control" name="nombre" id="nombre"/>
+        <span asp-validation-for="nombre" class="text-danger"></span>
+    </div>
+    <div class="col-md-6">
+        <label asp-for="apellidos" class="form-label"></label>
+        <input asp-for="apellidos" class="form-control" name="apellidos" id="apellidos" />
+        <span asp-validation-for="apellidos" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-12">
+        <label asp-for="direccion" class="form-label"></label>
+        <textarea cols="50" rows="4" asp-for="direccion" name="direccion" id="direccion" class="form-control"></textarea>
+        <span asp-validation-for="direccion" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-6">
+        <label asp-for="telefono" class="form-label"></label>
+        <input asp-for="telefono" class="form-control" name="telefono" id="telefono"/>
+        <span asp-validation-for="telefono"></span>
+    </div>
+    <div class="col-md-6">
+        <label asp-for="fechaNacimiento" class="form-label"></label>
+        <input asp-for="fechaNacimiento" class="form-control"/>
+        <span asp-validation-for="fechaNacimiento"></span>
+    </div>
+
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
+    </div>
+</form>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
