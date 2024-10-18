@@ -1,0 +1,56 @@
+﻿
+.contenedor-detalle-carrito{
+    padding: .5rem;
+}
+
+
+.div-imagen {
+    width: 8rem;
+    margin: 0;
+}
+
+
+.imagen{
+    width: 8rem;
+    margin: 0;
+
+}
+
+.informacion-detalle-carrito {
+    width: 30rem;
+
+}
+
+.contenedor-detalle-carrito{
+    display: flex;
+    gap: .7rem;
+}
+
+.informacion-detalle-carrito{
+    display: flex;
+    gap: 2rem;
+}
+
+.autor {
+    margin: 0;
+    color: #8293a8;
+    font-weight: 500;
+}
+.titulo{
+    margin-bottom: .3rem;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.contenedor-cantidad{
+    width: 5rem;
+}
+
+.precio {
+    margin: .3rem 0 0 0;
+    font-weight: 500;
+}
+
+
+
+

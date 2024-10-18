@@ -71,3 +71,4 @@ C:\Users\al150\source\repos\WebApplication2crudimagenes\WebApplication2crudimage
 C:\Users\al150\source\repos\WebApplication2crudimagenes\WebApplication2crudimagenes\obj\Debug\net8.0\WebApplication2crudimagenes.pdb
 C:\Users\al150\source\repos\WebApplication2crudimagenes\WebApplication2crudimagenes\obj\Debug\net8.0\WebApplication2crudimagenes.genruntimeconfig.cache
 C:\Users\al150\source\repos\WebApplication2crudimagenes\WebApplication2crudimagenes\obj\Debug\net8.0\ref\WebApplication2crudimagenes.dll
+C:\Users\al150\source\repos\WebApplication2crudimagenes\WebApplication2crudimagenes\obj\Debug\net8.0\WebApplication2crudimagenes.sourcelink.json

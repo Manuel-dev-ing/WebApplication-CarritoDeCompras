@@ -46,31 +46,34 @@
 
             }else {
                 template = `
-                        <div class="d-flex gap-3" id="itemsCarrito" data-libroId="${libro.Id}">
-                            <input type="hidden" id="inputHidden" value="${libro.Id}" />
-                                <div class="imagen border col-4">
-                                    
-                                    <img src="~/Imagenes/${libro.Imagen}"/>
-
+                            <div class="contenedor-detalle-carrito" id="itemsCarrito" data-libroId="${libro.Id}">
+                                <div class="div-imagen">
+                                    <img class="imagen" src="~/Imagenes/${libro.Imagen}" />
                                 </div>
-                                <div class="border titulos">
-                                    <div class="titulo border">
-                                        <p>${libro.Titulo}</p>
+
+                                <div class="informacion-detalle-carrito">
+                                    <div class="contenedor-informacion">
+                                        <input type="hidden" id="inputHidden" value="${libro.Id}" />
+
+                                        <div class="contenedor-autor">
+                                            <p class="autor">${libro.Autor}</p>
+                                        </div>
+
+                                        <div class="contenedor-titulo">
+                                            <p class="titulo">${libro.Titulo}</p>
+                                        </div>
+                                        <div class="contenedor-cantidad">
+                                            <input class="cantidadItem form-control col-2" type="number" min="1" value="${libro.Cantidad}"/>
+                                        </div>
+                                        <div class="contenedor-precio">
+                                            <p class="precio">$${libro.Precio}</p>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="autor border">
-                                    <p>${libro.Autor}</p>
-                                </div>
-                                <div class="precio border">
-                                    <input class="cantidadItem form-control col-2" type="number" min="1" value="${libro.Cantidad}" />
-                                </div>
+                                    <div class="contenedor-eliminar">
+                                        <button class="btn-eliminar btn btn-sm btn-outline-danger" onClick="eliminarItem(${libro.Id})"><i class="bi bi-trash"></i></button>
+                                    </div>
 
-                                <div class="border precio">
-                                    <p>$${libro.Precio}</p>
-                                </div>
-                                <div class="border precio">
-                                    <button class="btn btn-sm btn-outline-danger" onClick="eliminarItem(${libro.Id})"><i class="bi bi-x-lg"></i></button>
                                 </div>
                             </div>
                 `;
@@ -78,7 +81,7 @@
                 $('#listaCarrito').append(template);
                 agregarLocalStorage(libro);
 
-                console.log("Agregado al carrito");
+                
                 contarElementos();
                 calcularTotal();
                 actualizarPreciosInputNumber();
@@ -145,11 +148,6 @@
 
             var datos = JSON.stringify(requestData);
 
-            console.log('click btn comprar');
-        
-            console.log('requestData: ');
-            console.log(requestData);
-
             if (estaAutenticado == 0) {
                 let mensaje = "Inicia Sesion Para proceder con la compra"
                 mostrarMensajeError(mensaje);
@@ -162,7 +160,7 @@
                     'Content-Type': 'application/json'
                 }
            });
-            console.log("respuesta FETCH: ")
+            
 
             if (respuesta.ok) {
                 Swal.fire({
@@ -170,23 +168,17 @@
                     title: 'Compra Realizada Exitosamente',
                     text: 'tu compra ha sido realizada exitosamente'
                 });
-                console.log("log OK: ");
-
-                console.log(respuesta)
+   
                 eliminarElementos();
 
                 eliminarLocalStorage()
-                console.log("localStora eliminado");
                 contarElementos();
             }
 
             const result = await respuesta.json();
             
-
             if (result.code == "400") {
-
-                console.log("ERROR: ")
-                console.log(result);
+              
                 template = `
                         <div class="alert alert-warning alert-dismissible fade show col-6" id="alerta">
                             <strong>No hay Stock para el libro "${result.mensaje}"</strong>
@@ -196,7 +188,6 @@
                 $('#alertcontenedor').append(template);
 
                 var alerta = document.getElementById('alerta');
-                console.log(alerta);
 
                 setTimeout(() => {
 
@@ -217,7 +208,6 @@
     }
 
     function myfunction() {
-        console.log("DOM myfunction");
 
         let librosCarrito;
         let template;
@@ -228,31 +218,34 @@
                 
                 template = `
 
-                    <div class="d-flex gap-3" id="itemsCarrito" data-libroId="${lib.Id}">
-                            <input type="hidden" id="inputHidden" value="${lib.Id}" />
-                                <div class="imagen border col-3">
-                                    
-                                    <img class="imagenCarrito" src="/Imagenes/${lib.Imagen}" style="height:195px"/>
-
+                    <div class="contenedor-detalle-carrito" id="itemsCarrito" data-libroId="${lib.Id}">
+                                <div class="div-imagen">
+                                    <img class="imagen" src="/Imagenes/${lib.Imagen}"/>
                                 </div>
-                                <div class="border titulos">
-                                    <div class="titulo border">
-                                        <p>${lib.Titulo}</p>
+
+                                <div class="informacion-detalle-carrito">
+                                    <div class="contenedor-informacion">
+                                        <input type="hidden" id="inputHidden" value="${lib.Id}" />
+
+                                        <div class="contenedor-autor">
+                                            <p class="autor">${lib.Autor}</p>
+                                        </div>
+
+                                        <div class="contenedor-titulo">
+                                            <p class="titulo">${lib.Titulo}</p>
+                                        </div>
+                                        <div class="contenedor-cantidad">
+                                            <input class="cantidadItem form-control col-2" type="number" min="1" value="${lib.Cantidad}"/>
+                                        </div>
+                                        <div class="contenedor-precio">
+                                            <p class="precio">$${lib.Precio}</p>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="autor border">
-                                    <p>${lib.Autor}</p>
-                                </div>
-                                <div class="precio border">
-                                    <input class="cantidadItem form-control col-2" id="cantidadId" type="number" min="1" value="${lib.Cantidad}" />
-                                </div>
+                                    <div class="contenedor-eliminar">
+                                        <button class="btn-eliminar btn btn-sm btn-outline-danger" onClick="eliminarItem(${lib.Id})"><i class="bi bi-trash"></i></button>
+                                    </div>
 
-                                <div class="border precio">
-                                    <p>$${lib.Precio}</p>
-                                </div>
-                                <div class="border precio">
-                                    <button class="btn btn-sm btn-outline-danger" onClick="eliminarItem(${lib.Id})"><i class="bi bi-x-lg"></i></button>
                                 </div>
                             </div>
                     `;
@@ -429,7 +422,6 @@ function eliminarItem(id) {
 
 
 function eliminarElementos() {
-    console.log("funcion eliminarElementos ");
     libros = JSON.parse(localStorage.getItem('libros'));
 
     libros.forEach(libro => {
@@ -447,8 +439,6 @@ function eliminarFilaPorAtributo(id) {
 
     if (divfila) {
         divfila.remove();
-        console.log("DIV ELIMINAD0");
- 
     }
 }
 

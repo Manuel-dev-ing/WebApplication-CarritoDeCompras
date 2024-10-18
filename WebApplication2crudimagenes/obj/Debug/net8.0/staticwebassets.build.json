@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "MWK+9VG/mqasqalA3BoB0PBWBS3mYz6m+6Y3Lce2Hyk=",
+  "Hash": "OiwkkOfufR95XI6a5LmjYx4npSpOqLd+6LHm62C99Ow=",
   "Source": "WebApplication2crudimagenes",
   "BasePath": "_content/WebApplication2crudimagenes",
   "Mode": "Default",
@@ -110,6 +110,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\custom.min.css"
+    },
+    {
+      "Identity": "C:\\Users\\al150\\source\\repos\\WebApplication2crudimagenes\\WebApplication2crudimagenes\\wwwroot\\css\\detalleCarrito.css",
+      "SourceId": "WebApplication2crudimagenes",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\al150\\source\\repos\\WebApplication2crudimagenes\\WebApplication2crudimagenes\\wwwroot\\",
+      "BasePath": "_content/WebApplication2crudimagenes",
+      "RelativePath": "css/detalleCarrito.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\detalleCarrito.css"
     },
     {
       "Identity": "C:\\Users\\al150\\source\\repos\\WebApplication2crudimagenes\\WebApplication2crudimagenes\\wwwroot\\css\\fontGoogle.css",

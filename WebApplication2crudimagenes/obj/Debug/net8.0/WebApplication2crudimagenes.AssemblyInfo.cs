@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WebApplication2crudimagenes")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8e47c2e2d61a125d6d361f50c5f8553088373fcd")]
 [assembly: System.Reflection.AssemblyProductAttribute("WebApplication2crudimagenes")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WebApplication2crudimagenes")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

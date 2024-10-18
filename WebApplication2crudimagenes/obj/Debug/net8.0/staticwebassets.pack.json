@@ -77,6 +77,10 @@
       "PackagePath": "staticwebassets\\css\\custom.min.css"
     },
     {
+      "Id": "C:\\Users\\al150\\source\\repos\\WebApplication2crudimagenes\\WebApplication2crudimagenes\\wwwroot\\css\\detalleCarrito.css",
+      "PackagePath": "staticwebassets\\css\\detalleCarrito.css"
+    },
+    {
       "Id": "C:\\Users\\al150\\source\\repos\\WebApplication2crudimagenes\\WebApplication2crudimagenes\\wwwroot\\css\\fontGoogle.css",
       "PackagePath": "staticwebassets\\css\\fontGoogle.css"
     },

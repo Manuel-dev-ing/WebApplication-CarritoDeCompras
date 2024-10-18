@@ -27,7 +27,6 @@ namespace WebApplication2crudimagenes.Servicios
         Task<IEnumerable<UsuariosViewModel>> obtenerUsuarios(PaginacionViewModel paginacion);
     }
 
-
     public class RepositorioUsuarios: IRepositorioUsuarios
     {
         private readonly string connectionString;
