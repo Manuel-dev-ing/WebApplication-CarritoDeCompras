@@ -1,7 +1,5 @@
 # LibrosNet
 
- 🚧Proyecto en construcion 🚧
-
 ## Descripcion
 LibrosNet es una una tienda de libros gratis y de codigo abierto construido en ASP.NET core, aprovechando las ultimas mejoras de esta tecnologia para ofrecer seguridad y escalabilidad. Diseñado en la arquitectura MVC permitiendo futuras actulizaciones y mejoras sin interupciones significativas.   
 
