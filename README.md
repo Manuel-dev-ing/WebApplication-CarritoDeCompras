@@ -1,7 +1,7 @@
 # LibrosNet
 
 ## Descripcion
-LibrosNet es un carrito de compras para libros de codigo abierto construido en ASP.NET core, aprovechando las ultimas mejoras de esta tecnologia para ofrecer seguridad y escalabilidad. Diseñado en la arquitectura MVC permitiendo futuras actualizaciones y mejoras sin interupciones significativas.   
+LibrosNet es un carrito de compras para libros construido en ASP.NET core, aprovechando las ultimas mejoras de esta tecnologia para ofrecer seguridad y escalabilidad. Diseñado en la arquitectura MVC permitiendo futuras actualizaciones y mejoras sin interupciones significativas.   
 
 ## Funcionalidades
 
